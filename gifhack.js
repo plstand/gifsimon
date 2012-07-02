@@ -18,6 +18,7 @@ var SEVEN_SEGMENT_CHARACTERS = {
   'E': 0x79,
   'L': 0x38,
   'N': 0x37,
+  'n': 0x54,
   'o': 0x5c,
   'P': 0x73,
   'r': 0x50,
@@ -221,6 +222,7 @@ GifHack.prototype.flush = function() {
       naeb.writeUInt16LE(this.times, 17);
     }
     this.stream.write(naeb);
+    //this.times = null;
   }
 
   s.write(this.myGce);
