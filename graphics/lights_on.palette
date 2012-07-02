@@ -1,0 +1,30 @@
+# Dynamic Colors
+255  51  51 # Button 0 (red)
+255 255  51 # Button 1 (yellow)
+  0 204 255 # Button 2 (blue)
+  0 204   0 # Button 3 (green)
+255   0 255 # 7-Segment Digit 0 Segment a
+255   1 255 # 7-Segment Digit 0 Segment b
+255   2 255 # 7-Segment Digit 0 Segment c
+255   3 255 # 7-Segment Digit 0 Segment d
+255   4 255 # 7-Segment Digit 0 Segment e
+255   5 255 # 7-Segment Digit 0 Segment f
+255   6 255 # 7-Segment Digit 0 Segment g
+255  16 255 # 7-Segment Digit 1 Segment a
+255  17 255 # 7-Segment Digit 1 Segment b
+255  18 255 # 7-Segment Digit 1 Segment c
+255  19 255 # 7-Segment Digit 1 Segment d
+255  20 255 # 7-Segment Digit 1 Segment e
+255  21 255 # 7-Segment Digit 1 Segment f
+255  22 255 # 7-Segment Digit 1 Segment g
+255  32 255 # 7-Segment Digit 2 Segment a
+255  33 255 # 7-Segment Digit 2 Segment b
+255  34 255 # 7-Segment Digit 2 Segment c
+255  35 255 # 7-Segment Digit 2 Segment d
+255  36 255 # 7-Segment Digit 2 Segment e
+255  37 255 # 7-Segment Digit 2 Segment f
+255  38 255 # 7-Segment Digit 2 Segment g
+
+# Static Colors
+  0   0   0 # Base (black)
+204 204 204 # Hub (gray)
