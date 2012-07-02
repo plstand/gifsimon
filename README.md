@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This is a response to [a challenge](http://codegolf.stackexchange.com/questions/5933/create-a-user-profile-mini-game) on the Programming Puzzles & Code Golf beta to create a game that will work inside a user profile on a Stack Exchange site. This means making each button a hyperlink, running all code on a separate web server, and displaying output by dynamically generating images. An unwritten rule is that hyperlinks may not point directly to the game's web server. This requires otherwise unnecessary referrer checking and careful session handling.
+This is a response to [a challenge](http://codegolf.stackexchange.com/questions/5933/create-a-user-profile-mini-game) on the Programming Puzzles & Code Golf beta Stack Exchange site to create a game that will work inside a user profile there. This means making each button a hyperlink, running all code on a separate web server, and displaying output by dynamically generating images. An unwritten rule is that hyperlinks may not point directly to the game's web server. This requires otherwise unnecessary referrer checking and careful session handling.
 
 I have based this game on a classic game by Milton Bradley called [Simon](https://en.wikipedia.org/wiki/Simon_%28game%29), as I mainly want to demonstrate that user profile games can incorporate animation using a simple game that hopefully everyone already knows how to play. However, there is no time limit, which I consider to be unnecessary. Also, you cannot win this game; you only can either stop playing or lose sooner or later.
 
