@@ -156,7 +156,7 @@ Game.prototype.hit = function(button) {
   } else {
     // Player screwed up; game over.
     this.state.event = 'wrong';
-    this.state.seed = prng.seed;
+    this.state.seed = Math.floor(Date.now() / 1000);
     this.state.round = 0;
     this.state.signal = 0;
   }
