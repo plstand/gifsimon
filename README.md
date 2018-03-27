@@ -10,19 +10,21 @@ I have based this game on a classic game by Milton Bradley called [Simon](https:
 
 The GIF animations are dynamically created using a palette animation technique involving a separate color table for each frame. This avoids the need for a graphics drawing library such as [gd](https://libgd.github.io/).
 
-## Testing
+## How to run
 
-Start the app using this command line:
+Currently, this app is deployed at [gifsimon.herokuapp.com](https://gifsimon.herokuapp.com/).
 
-    PORT=5000 node web.js
+If you would like to run your own instance, first install the dependencies:
 
-Replace `5000` with the TCP port the app should listen on.
+    npm install
 
-## Deployment
+Once the dependencies are installed, start the web server using this command line:
 
-Push it to Heroku, ensuring that only one process ("dyno") is running at any time. The current version's session handling scheme, intentionally simple to avoid problems with parallel image downloading, does not support sharing the load with other processes.
+    PORT=5000 npm start
 
-Currently, this app is deployed at [gifsimon.herokuapp.com](https://gifsimon.herokuapp.com/). Sessions expire after 30 minutes, and expired sessions are automatically destroyed every 15 minutes.
+Replace `5000` with the desired HTTP port.
+
+Note that this app's simple session handling scheme only works for a single server process. When deploying to Heroku, the "web" process type must not be scaled to more than a single dyno (application container).
 
 ## License
 
