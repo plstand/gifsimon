@@ -1,7 +1,8 @@
 // Include necessary packages.
 var url = require('url');
 var express = require('express');
-var Loop = require('futures').loop;
+var compression = require('compression');
+var cookieParser = require('cookie-parser');
 
 // Include game code from other files.
 var Game = require('./game').Game;
@@ -44,20 +45,21 @@ function cleanupOldSessions() {
   }
 }
 
-// Set up the HTTP server.
-var app = express.createServer(express.logger());
+// Set up the application.
+var app = express();
 app.use(express['static'](__dirname + '/static'));
-app.use(express.cookieParser());
+app.use(compression({filter: () => true}));
+app.use(cookieParser());
 
 app.get('/:sliceNum.gif', function(req, res, next) {
 
   var sliceNum = parseInt(req.params.sliceNum, 10);
 
   if (isNaN(sliceNum) || sliceNum < 0 || sliceNum > 3) {
-    return next(new Error('invalid image slice number'));
+    return next();
   }
 
-  var referer = req.header('Referer');
+  var referer = req.get('Referer');
   if (referer) {
     var button = parseInt(url.parse(referer, true).query.simonhit, 10);
   }
@@ -107,24 +109,23 @@ app.get('/:sliceNum.gif', function(req, res, next) {
     'Expires': 'Thu, 01 Jan 1970 00:00:00 GMT'
   });
   game.view(new GifHack(gifs[sliceNum], res));
-
 });
 
 // Load GIF files before accepting connections.
 var gifs = [];
-var loop = Loop();
 
-loop.run(function(_next, _err, _i) {
-  if (_i > 3) {
-    return _next("break");
-  }
-
-  GifHack.loadTemplateToBuffers('graphics/simon_' + _i + '.gif', function(buffers) {
-    gifs.push(buffers);
-    _next(undefined, _i + 1);
-  });
-
-}, 0).when(function(_err, _i) {
+(new Promise(function(resolve, reject) {
+  (function next(_i) {
+    if (_i < 4) {
+      GifHack.loadTemplateToBuffers('graphics/simon_' + _i + '.gif', function(buffers) {
+        gifs.push(buffers);
+        next(_i + 1);
+      });
+    } else {
+      resolve();
+    }
+  })(0);
+})).then(function() {
   var port = process.env.PORT || 5000;
   app.listen(port, function() {
 

@@ -1,11 +1,12 @@
 {
   "name": "gifsimon",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
-    "express": "2.5.x",
-    "futures": "2.3.x"
+    "compression": "1.x",
+    "cookie-parser": "1.x",
+    "express": "4.x"
   },
   "engines": {
-    "node": "0.6.x"
+    "node": "8.x"
   }
 }

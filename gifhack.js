@@ -33,7 +33,7 @@ function loadTemplateToBuffers(filename, callback) {
     var buffers = {};
 
     // Copy header and LSD.
-    buffers.header = new Buffer(13);
+    buffers.header = Buffer.alloc(13);
     data.copy(buffers.header, 0, 0, 13);
     // Clear GCT flag and GCT size.
     buffers.header[10] &= ~0x87;
@@ -44,7 +44,7 @@ function loadTemplateToBuffers(filename, callback) {
     // first frame's LCT.
     var rawGctSize = data[10] & 0x07;
     var gctSize = 3 * (2 << rawGctSize);
-    buffers.gct = new Buffer(gctSize);
+    buffers.gct = Buffer.alloc(gctSize);
     data.copy(buffers.gct, 0, 13, 13 + gctSize);
 
     // Search for the first LCT, whose entries will be used when
@@ -133,18 +133,18 @@ function loadTemplateToBuffers(filename, callback) {
       throw new Error('found GCT and LCT having different sizes');
     }
 
-    buffers.imageBlock = new Buffer(imageBlockSize);
+    buffers.imageBlock = Buffer.alloc(imageBlockSize);
     data.copy(buffers.imageBlock, 0, imageBlockPos, imageBlockPos + imageBlockSize);
     // Set LCT flag and size.
     buffers.imageBlock[9] = (buffers.imageBlock[9] & ~0x07) | 0x80 | rawGctSize;
 
-    buffers.gce = new Buffer(gceSize);
+    buffers.gce = Buffer.alloc(gceSize);
     data.copy(buffers.gce, 0, gcePos, gcePos + gceSize);
 
-    buffers.lct = new Buffer(lctSize);
+    buffers.lct = Buffer.alloc(lctSize);
     data.copy(buffers.lct, 0, lctPos, lctPos + lctSize);
 
-    buffers.imageData = new Buffer(imageDataSize);
+    buffers.imageData = Buffer.alloc(imageDataSize);
     data.copy(buffers.imageData, 0, imageDataPos, imageDataPos + imageDataSize);
 
     callback(buffers);
@@ -161,10 +161,10 @@ function GifHack(buffers, stream) {
   this.dirty = true;
   this.times = null;
 
-  this.myGce = new Buffer(buffers.gce.length);
+  this.myGce = Buffer.alloc(buffers.gce.length);
   this.buffers.gce.copy(this.myGce);
 
-  this.myCt = new Buffer(buffers.gct.length);
+  this.myCt = Buffer.alloc(buffers.gct.length);
   this.buffers.gct.copy(this.myCt);
 
 }
@@ -214,7 +214,7 @@ GifHack.prototype.flush = function() {
   if (this.times) {
     // NETSCAPE application extension block
     // http://odur.let.rug.nl/~kleiweg/gif/netscape.html
-    var naeb = new Buffer([
+    var naeb = Buffer.from([
       0x21, 0xff, 0x0b, 0x4e, 0x45, 0x54, 0x53, 0x43, 0x41, 0x50,
       0x45, 0x32, 0x2e, 0x30, 0x03, 0x01, 0x00, 0x00, 0x00
     ]);
@@ -225,9 +225,9 @@ GifHack.prototype.flush = function() {
     //this.times = null;
   }
 
-  s.write(this.myGce);
+  s.write(Buffer.from(this.myGce));
   s.write(this.buffers.imageBlock);
-  s.write(this.myCt);
+  s.write(Buffer.from(this.myCt));
   s.write(this.buffers.imageData);
 
   this.dirty = false;
