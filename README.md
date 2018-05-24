@@ -12,9 +12,9 @@ The GIF animations are dynamically created using a palette animation technique i
 
 ## How to run
 
-Currently, this app is deployed at [gifsimon.herokuapp.com](https://gifsimon.herokuapp.com/).
+This app was deployed on Heroku from July 2012 to May 2018. It underwent changes in March 2018 to make it compatible with Node v8.
 
-If you would like to run your own instance, first install the dependencies:
+If you would like to run your own instance locally, first install the dependencies:
 
     npm install
 
